@@ -1,24 +1,6 @@
-/* ==========================================================================
-   Site stylesheet
-   --------------------------------------------------------------------------
-   1. Tokens          5. Components (buttons, tables, cards, forms)
-   2. Base            6. Utilities
-   3. Typography      7. Responsive, dark mode, motion, print
-   4. Layout
-
-   Optional: load "Fraunces" (headings) and "Inter" (body) from your font
-   provider of choice. They are already first in the font stacks below and
-   will be picked up automatically; system fonts are the fallback.
-   ========================================================================== */
-
-
-/* ==========================================================================
-   1. Tokens
-   ========================================================================== */
 :root {
     color-scheme: light dark;
 
-    /* Brand */
     --navy-950: #0d1730;
     --navy-900: #111f3b;
     --navy-800: #1a2b4c;
@@ -29,7 +11,6 @@
     --amber-500: #f59e0b;
     --amber-600: #d97706;
 
-    /* Surfaces, text, lines (light) */
     --bg: #f2f4f8;
     --surface: #ffffff;
     --surface-2: #f7f9fc;
@@ -44,7 +25,6 @@
     --danger: #b42318;
     --focus: #d97706;
 
-    /* Components */
     --btn-bg: var(--navy-800);
     --btn-fg: #ffffff;
     --btn-hover: var(--navy-600);
@@ -55,21 +35,18 @@
     --field-border: #a3afc2;
     --accent-control: var(--navy-700);
 
-    /* Shadows are tinted with the brand navy, never pure black */
     --shadow-sm: 0 1px 2px rgba(17, 31, 59, 0.06);
     --shadow-md: 0 1px 2px rgba(17, 31, 59, 0.04),
                  0 12px 28px -16px rgba(17, 31, 59, 0.22);
     --shadow-lg: 0 2px 4px rgba(17, 31, 59, 0.05),
                  0 18px 36px -18px rgba(17, 31, 59, 0.32);
 
-    /* Type */
     --font-body: "Inter", system-ui, -apple-system, "Segoe UI", Roboto,
                  "Helvetica Neue", Arial, sans-serif;
     --font-display: "Fraunces", "Source Serif 4", "Iowan Old Style",
                     "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
     --font-mono: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
 
-    /* Spacing scale */
     --s-1: 0.25rem;
     --s-2: 0.5rem;
     --s-3: 0.75rem;
@@ -78,7 +55,6 @@
     --s-6: 2rem;
     --s-7: 3rem;
 
-    /* Shape & layout */
     --radius: 14px;
     --radius-sm: 8px;
     --max: 66rem;
@@ -89,10 +65,6 @@
     --t: 160ms;
 }
 
-
-/* ==========================================================================
-   2. Base
-   ========================================================================== */
 *,
 *::before,
 *::after {
@@ -139,7 +111,6 @@ img {
     border-radius: 10px;
 }
 
-/* Keyboard focus: visible, high contrast, never on mouse clicks */
 :focus-visible {
     outline: 3px solid var(--focus);
     outline-offset: 3px;
@@ -149,17 +120,12 @@ img {
     outline: none;
 }
 
-/* Dark surfaces need a lighter ring */
 header,
 nav,
 footer {
     --focus: var(--amber-400);
 }
 
-
-/* ==========================================================================
-   3. Typography
-   ========================================================================== */
 h1,
 h2,
 h3 {
@@ -189,12 +155,10 @@ h4 {
     margin: var(--s-5) 0 var(--s-1);
 }
 
-/* A section's first heading never needs top spacing */
 :is(main, .intro-box, .member-section, .card) > :first-child {
     margin-top: 0;
 }
 
-/* Small brand rule under section headings */
 main h2::after {
     content: "";
     display: block;
@@ -301,10 +265,6 @@ figcaption {
     color: var(--text-muted);
 }
 
-
-/* ==========================================================================
-   4. Layout: header, nav, main, footer
-   ========================================================================== */
 header {
     position: relative;
     text-align: center;
@@ -361,7 +321,6 @@ nav a {
     transition: color var(--t) var(--ease), background-color var(--t) var(--ease);
 }
 
-/* Active-page indicator: an amber underline that draws in */
 nav a::after {
     content: "";
     position: absolute;
@@ -435,12 +394,6 @@ footer a:hover {
     color: var(--amber-400);
 }
 
-
-/* ==========================================================================
-   5. Components
-   ========================================================================== */
-
-/* ---- Buttons ----------------------------------------------------------- */
 .btn,
 form button,
 form input[type="submit"] {
@@ -507,7 +460,6 @@ form button:disabled {
     box-shadow: none;
 }
 
-/* ---- Tables ------------------------------------------------------------ */
 table {
     width: 100%;
     margin: var(--s-5) 0 var(--s-6);
@@ -548,7 +500,6 @@ th {
     border-bottom-color: var(--thead-bg);
 }
 
-/* Row headers read as content, not as column headers */
 th[scope="row"] {
     font-size: inherit;
     font-weight: 650;
@@ -577,7 +528,6 @@ tbody tr:hover {
     background-color: var(--row-hover);
 }
 
-/* ---- Cards ------------------------------------------------------------- */
 .card-grid {
     --card-pad: 1.25rem;
     display: grid;
@@ -604,7 +554,6 @@ tbody tr:hover {
     margin: 0;
 }
 
-/* Lead image bleeds to the card edges */
 .card > img:first-child {
     width: calc(100% + var(--card-pad) * 2);
     max-width: none;
@@ -623,7 +572,6 @@ tbody tr:hover {
     color: var(--text-muted);
 }
 
-/* Pin the call-to-action to the bottom so cards line up */
 .card > .btn {
     align-self: flex-start;
     margin-top: auto;
@@ -641,7 +589,6 @@ tbody tr:hover {
     }
 }
 
-/* ---- Member panels ----------------------------------------------------- */
 .member-section {
     margin-bottom: var(--s-5);
     padding: var(--s-5) var(--s-6);
@@ -654,7 +601,6 @@ tbody tr:hover {
     margin-bottom: 0;
 }
 
-/* ---- Forms ------------------------------------------------------------- */
 form {
     display: flex;
     flex-direction: column;
@@ -680,7 +626,6 @@ label {
     color: var(--heading);
 }
 
-/* Keep a label close to its own field, with more air between pairs */
 form > label:has(+ :is(input, textarea, select)) {
     margin-bottom: calc(var(--s-2) * -1);
 }
@@ -754,10 +699,6 @@ form input[type="submit"] {
     margin-top: var(--s-1);
 }
 
-
-/* ==========================================================================
-   6. Utilities
-   ========================================================================== */
 .visually-hidden {
     position: absolute;
     width: 1px;
@@ -770,7 +711,6 @@ form input[type="submit"] {
     border: 0;
 }
 
-/* Add as the first element in <body>: <a class="skip-link" href="#main">… */
 .skip-link {
     position: absolute;
     top: -4rem;
@@ -789,12 +729,6 @@ form input[type="submit"] {
     top: 0;
 }
 
-
-/* ==========================================================================
-   7. Responsive, dark mode, motion, print
-   ========================================================================== */
-
-/* Sticky navigation on larger screens (a wrapped nav would eat the viewport on phones) */
 @media (min-width: 48em) {
     nav {
         position: sticky;
@@ -817,7 +751,7 @@ form input[type="submit"] {
         padding: var(--s-4);
     }
 
-    /* Wide tables scroll sideways instead of breaking the layout */
+    
     table {
         display: block;
         overflow-x: auto;
@@ -829,7 +763,6 @@ form input[type="submit"] {
     }
 }
 
-/* Dark mode: same brand, re-tuned surfaces. Delete this block to opt out. */
 @media screen and (prefers-color-scheme: dark) {
     :root {
         --bg: #0a1120;
