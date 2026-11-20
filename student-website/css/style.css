@@ -11,6 +11,7 @@
     --amber-500: #f59e0b;
     --amber-600: #d97706;
 
+    
     --bg: #f2f4f8;
     --surface: #ffffff;
     --surface-2: #f7f9fc;
@@ -25,6 +26,7 @@
     --danger: #b42318;
     --focus: #d97706;
 
+    
     --btn-bg: var(--navy-800);
     --btn-fg: #ffffff;
     --btn-hover: var(--navy-600);
@@ -35,18 +37,21 @@
     --field-border: #a3afc2;
     --accent-control: var(--navy-700);
 
+    
     --shadow-sm: 0 1px 2px rgba(17, 31, 59, 0.06);
     --shadow-md: 0 1px 2px rgba(17, 31, 59, 0.04),
                  0 12px 28px -16px rgba(17, 31, 59, 0.22);
     --shadow-lg: 0 2px 4px rgba(17, 31, 59, 0.05),
                  0 18px 36px -18px rgba(17, 31, 59, 0.32);
 
+    
     --font-body: "Inter", system-ui, -apple-system, "Segoe UI", Roboto,
                  "Helvetica Neue", Arial, sans-serif;
     --font-display: "Fraunces", "Source Serif 4", "Iowan Old Style",
                     "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
     --font-mono: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
 
+    
     --s-1: 0.25rem;
     --s-2: 0.5rem;
     --s-3: 0.75rem;
@@ -55,6 +60,7 @@
     --s-6: 2rem;
     --s-7: 3rem;
 
+    
     --radius: 14px;
     --radius-sm: 8px;
     --max: 66rem;
@@ -64,6 +70,8 @@
     --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
     --t: 160ms;
 }
+
+
 
 *,
 *::before,
@@ -111,6 +119,7 @@ img {
     border-radius: 10px;
 }
 
+
 :focus-visible {
     outline: 3px solid var(--focus);
     outline-offset: 3px;
@@ -120,11 +129,14 @@ img {
     outline: none;
 }
 
+
 header,
 nav,
 footer {
     --focus: var(--amber-400);
 }
+
+
 
 h1,
 h2,
@@ -154,6 +166,7 @@ h4 {
     color: var(--text);
     margin: var(--s-5) 0 var(--s-1);
 }
+
 
 :is(main, .intro-box, .member-section, .card) > :first-child {
     margin-top: 0;
@@ -321,6 +334,7 @@ nav a {
     transition: color var(--t) var(--ease), background-color var(--t) var(--ease);
 }
 
+
 nav a::after {
     content: "";
     position: absolute;
@@ -445,7 +459,6 @@ form button:disabled {
     transform: none;
 }
 
-/* Optional variants */
 .btn--accent {
     --btn-bg: var(--amber-400);
     --btn-fg: var(--navy-950);
@@ -459,6 +472,7 @@ form button:disabled {
     border-color: var(--border-strong);
     box-shadow: none;
 }
+
 
 table {
     width: 100%;
@@ -499,6 +513,7 @@ th {
     background-color: var(--thead-bg);
     border-bottom-color: var(--thead-bg);
 }
+
 
 th[scope="row"] {
     font-size: inherit;
@@ -554,13 +569,19 @@ tbody tr:hover {
     margin: 0;
 }
 
-.card > img:first-child {
-    width: calc(100% + var(--card-pad) * 2);
-    max-width: none;
-    margin: calc(var(--card-pad) * -1) calc(var(--card-pad) * -1) var(--s-1);
-    aspect-ratio: 3 / 2;
+.card img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 5;
     object-fit: cover;
-    border-radius: 0;
+    object-position: center 15%; 
+    border-radius: 10px;
+}
+
+main > p + .card-grid .card img {
+    aspect-ratio: 16 / 10;
+    object-position: top left;
 }
 
 .card h3 {
@@ -571,6 +592,7 @@ tbody tr:hover {
     font-size: 0.95rem;
     color: var(--text-muted);
 }
+
 
 .card > .btn {
     align-self: flex-start;
@@ -625,6 +647,7 @@ label {
     font-weight: 650;
     color: var(--heading);
 }
+
 
 form > label:has(+ :is(input, textarea, select)) {
     margin-bottom: calc(var(--s-2) * -1);
@@ -751,7 +774,6 @@ form input[type="submit"] {
         padding: var(--s-4);
     }
 
-    
     table {
         display: block;
         overflow-x: auto;
