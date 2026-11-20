@@ -1,0 +1,951 @@
+/* ==========================================================================
+   Site stylesheet
+   --------------------------------------------------------------------------
+   1. Tokens          5. Components (buttons, tables, cards, forms)
+   2. Base            6. Utilities
+   3. Typography      7. Responsive, dark mode, motion, print
+   4. Layout
+
+   Optional: load "Fraunces" (headings) and "Inter" (body) from your font
+   provider of choice. They are already first in the font stacks below and
+   will be picked up automatically; system fonts are the fallback.
+   ========================================================================== */
+
+
+/* ==========================================================================
+   1. Tokens
+   ========================================================================== */
+:root {
+    color-scheme: light dark;
+
+    /* Brand */
+    --navy-950: #0d1730;
+    --navy-900: #111f3b;
+    --navy-800: #1a2b4c;
+    --navy-700: #243b67;
+    --navy-600: #2c4a82;
+    --amber-300: #fcd34d;
+    --amber-400: #fbbf24;
+    --amber-500: #f59e0b;
+    --amber-600: #d97706;
+
+    /* Surfaces, text, lines (light) */
+    --bg: #f2f4f8;
+    --surface: #ffffff;
+    --surface-2: #f7f9fc;
+    --border: #dde3ec;
+    --border-strong: #b9c3d3;
+    --text: #1e293b;
+    --text-muted: #52607a;
+    --text-subtle: #66758d;
+    --heading: #14223f;
+    --link: #2c4a82;
+    --link-hover: #14223f;
+    --danger: #b42318;
+    --focus: #d97706;
+
+    /* Components */
+    --btn-bg: var(--navy-800);
+    --btn-fg: #ffffff;
+    --btn-hover: var(--navy-600);
+    --thead-bg: var(--navy-800);
+    --thead-fg: #ffffff;
+    --row-hover: #eef3fb;
+    --field-bg: #ffffff;
+    --field-border: #a3afc2;
+    --accent-control: var(--navy-700);
+
+    /* Shadows are tinted with the brand navy, never pure black */
+    --shadow-sm: 0 1px 2px rgba(17, 31, 59, 0.06);
+    --shadow-md: 0 1px 2px rgba(17, 31, 59, 0.04),
+                 0 12px 28px -16px rgba(17, 31, 59, 0.22);
+    --shadow-lg: 0 2px 4px rgba(17, 31, 59, 0.05),
+                 0 18px 36px -18px rgba(17, 31, 59, 0.32);
+
+    /* Type */
+    --font-body: "Inter", system-ui, -apple-system, "Segoe UI", Roboto,
+                 "Helvetica Neue", Arial, sans-serif;
+    --font-display: "Fraunces", "Source Serif 4", "Iowan Old Style",
+                    "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+    --font-mono: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
+
+    /* Spacing scale */
+    --s-1: 0.25rem;
+    --s-2: 0.5rem;
+    --s-3: 0.75rem;
+    --s-4: 1rem;
+    --s-5: 1.5rem;
+    --s-6: 2rem;
+    --s-7: 3rem;
+
+    /* Shape & layout */
+    --radius: 14px;
+    --radius-sm: 8px;
+    --max: 66rem;
+    --gutter: clamp(1rem, 4vw, 2rem);
+
+    /* Motion */
+    --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+    --t: 160ms;
+}
+
+
+/* ==========================================================================
+   2. Base
+   ========================================================================== */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    scroll-padding-top: 5rem;
+}
+
+body {
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.65;
+    color: var(--text);
+    background-color: var(--bg);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+
+::selection {
+    background: var(--amber-400);
+    color: var(--navy-950);
+}
+
+img,
+svg,
+video {
+    max-width: 100%;
+}
+
+img {
+    height: auto;
+    display: block;
+    border-radius: 10px;
+}
+
+/* Keyboard focus: visible, high contrast, never on mouse clicks */
+:focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 3px;
+}
+
+:focus:not(:focus-visible) {
+    outline: none;
+}
+
+/* Dark surfaces need a lighter ring */
+header,
+nav,
+footer {
+    --focus: var(--amber-400);
+}
+
+
+/* ==========================================================================
+   3. Typography
+   ========================================================================== */
+h1,
+h2,
+h3 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    line-height: 1.18;
+    letter-spacing: -0.015em;
+    color: var(--heading);
+    text-wrap: balance;
+}
+
+h2 {
+    font-size: clamp(1.5rem, 1.25rem + 1vw, 2rem);
+    margin: var(--s-7) 0 var(--s-3);
+}
+
+h3 {
+    font-size: clamp(1.15rem, 1.05rem + 0.4vw, 1.35rem);
+    margin: var(--s-6) 0 var(--s-2);
+}
+
+h4 {
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.4;
+    color: var(--text);
+    margin: var(--s-5) 0 var(--s-1);
+}
+
+/* A section's first heading never needs top spacing */
+:is(main, .intro-box, .member-section, .card) > :first-child {
+    margin-top: 0;
+}
+
+/* Small brand rule under section headings */
+main h2::after {
+    content: "";
+    display: block;
+    width: 2.5rem;
+    height: 3px;
+    margin-top: 0.6rem;
+    background: var(--amber-500);
+    border-radius: 2px;
+}
+
+p {
+    margin-bottom: var(--s-4);
+    max-width: 70ch;
+    text-wrap: pretty;
+}
+
+p:last-child {
+    margin-bottom: 0;
+}
+
+strong,
+b {
+    font-weight: 650;
+}
+
+small {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+}
+
+a {
+    color: var(--link);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+    transition: color var(--t) var(--ease),
+                text-decoration-color var(--t) var(--ease);
+}
+
+a:hover {
+    color: var(--link-hover);
+    text-decoration-thickness: 2px;
+}
+
+ul,
+ol {
+    margin: 0 0 var(--s-5);
+    padding-left: 1.4rem;
+}
+
+li {
+    margin-bottom: 0.4rem;
+    padding-left: 0.2rem;
+}
+
+li::marker {
+    color: var(--amber-600);
+    font-weight: 700;
+}
+
+ul ul,
+ol ol,
+ul ol,
+ol ul {
+    margin: 0.4rem 0 0;
+}
+
+nav ul,
+footer ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+blockquote {
+    margin: var(--s-5) 0;
+    padding: var(--s-1) 0 var(--s-1) var(--s-5);
+    border-left: 3px solid var(--amber-500);
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    line-height: 1.5;
+    color: var(--heading);
+}
+
+hr {
+    border: 0;
+    height: 1px;
+    background: var(--border);
+    margin: var(--s-6) 0;
+}
+
+code,
+kbd {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    padding: 0.15em 0.4em;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 5px;
+}
+
+figcaption {
+    margin-top: var(--s-2);
+    font-size: 0.875rem;
+    color: var(--text-muted);
+}
+
+
+/* ==========================================================================
+   4. Layout: header, nav, main, footer
+   ========================================================================== */
+header {
+    position: relative;
+    text-align: center;
+    color: #ffffff;
+    padding: clamp(2rem, 6vw, 4rem) var(--gutter);
+    background:
+        repeating-linear-gradient(
+            135deg,
+            rgba(255, 255, 255, 0.035) 0 1px,
+            transparent 1px 14px
+        ),
+        linear-gradient(180deg, var(--navy-800) 0%, var(--navy-900) 100%);
+    border-bottom: 3px solid var(--amber-500);
+}
+
+header h1 {
+    color: #ffffff;
+    font-size: clamp(1.9rem, 1.3rem + 2.8vw, 3rem);
+    line-height: 1.08;
+    letter-spacing: -0.025em;
+    margin: 0 0 var(--s-2);
+}
+
+header p {
+    margin-inline: auto;
+    font-size: clamp(1rem, 0.95rem + 0.3vw, 1.15rem);
+    color: rgba(255, 255, 255, 0.78);
+}
+
+header img {
+    margin-inline: auto;
+}
+
+nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--s-1) var(--s-2);
+    padding: var(--s-2) var(--gutter);
+    background: var(--navy-950);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    box-shadow: 0 8px 18px -12px rgba(0, 0, 0, 0.55);
+}
+
+nav a {
+    position: relative;
+    padding: 0.6rem 0.9rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    color: rgba(255, 255, 255, 0.78);
+    text-decoration: none;
+    border-radius: 6px;
+    transition: color var(--t) var(--ease), background-color var(--t) var(--ease);
+}
+
+/* Active-page indicator: an amber underline that draws in */
+nav a::after {
+    content: "";
+    position: absolute;
+    left: 0.9rem;
+    right: 0.9rem;
+    bottom: 0.2rem;
+    height: 2px;
+    background: var(--amber-400);
+    border-radius: 2px;
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 220ms var(--ease);
+}
+
+nav a:hover {
+    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.07);
+}
+
+nav a.active,
+nav a[aria-current="page"] {
+    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+nav a.active::after,
+nav a[aria-current="page"]::after {
+    transform: scaleX(1);
+}
+
+main {
+    flex: 1 0 auto;
+    width: min(100% - (var(--gutter) * 2), var(--max));
+    margin: clamp(1.25rem, 4vw, 3rem) auto;
+    padding: clamp(1.25rem, 4vw, 3rem);
+    background-color: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-md);
+}
+
+.intro-box {
+    margin-bottom: var(--s-6);
+    padding-bottom: var(--s-5);
+    border-bottom: 1px solid var(--border);
+}
+
+.intro-box p {
+    font-size: clamp(1.05rem, 1rem + 0.3vw, 1.2rem);
+    line-height: 1.6;
+}
+
+footer {
+    margin-top: auto;
+    padding: var(--s-6) var(--gutter);
+    text-align: center;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.72);
+    background-color: var(--navy-950);
+}
+
+footer p {
+    margin-inline: auto;
+}
+
+footer a {
+    color: #ffffff;
+}
+
+footer a:hover {
+    color: var(--amber-400);
+}
+
+
+/* ==========================================================================
+   5. Components
+   ========================================================================== */
+
+/* ---- Buttons ----------------------------------------------------------- */
+.btn,
+form button,
+form input[type="submit"] {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--s-2);
+    margin-top: var(--s-2);
+    padding: 0.7rem 1.35rem;
+    font: inherit;
+    font-size: 0.95rem;
+    font-weight: 650;
+    line-height: 1.2;
+    letter-spacing: 0.005em;
+    color: var(--btn-fg);
+    background-color: var(--btn-bg);
+    border: 1px solid transparent;
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    cursor: pointer;
+    box-shadow: var(--shadow-sm);
+    transition: background-color var(--t) var(--ease),
+                transform var(--t) var(--ease),
+                box-shadow var(--t) var(--ease);
+}
+
+.btn:hover,
+form button:hover,
+form input[type="submit"]:hover {
+    color: var(--btn-fg);
+    background-color: var(--btn-hover);
+    text-decoration: none;
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+}
+
+.btn:active,
+form button:active,
+form input[type="submit"]:active {
+    transform: translateY(0);
+    box-shadow: var(--shadow-sm);
+}
+
+.btn:disabled,
+.btn[aria-disabled="true"],
+form button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Optional variants */
+.btn--accent {
+    --btn-bg: var(--amber-400);
+    --btn-fg: var(--navy-950);
+    --btn-hover: var(--amber-300);
+}
+
+.btn--ghost {
+    --btn-fg: var(--heading);
+    --btn-hover: var(--surface-2);
+    background-color: transparent;
+    border-color: var(--border-strong);
+    box-shadow: none;
+}
+
+/* ---- Tables ------------------------------------------------------------ */
+table {
+    width: 100%;
+    margin: var(--s-5) 0 var(--s-6);
+    border-collapse: separate;
+    border-spacing: 0;
+    overflow: hidden;
+    font-size: 0.95rem;
+    font-variant-numeric: tabular-nums;
+    background-color: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+}
+
+caption {
+    caption-side: top;
+    padding-bottom: var(--s-3);
+    text-align: left;
+    font-weight: 650;
+    color: var(--text-muted);
+}
+
+th,
+td {
+    padding: 0.8rem 1rem;
+    text-align: left;
+    vertical-align: top;
+    border-bottom: 1px solid var(--border);
+}
+
+th {
+    font-size: 0.76rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    color: var(--thead-fg);
+    background-color: var(--thead-bg);
+    border-bottom-color: var(--thead-bg);
+}
+
+/* Row headers read as content, not as column headers */
+th[scope="row"] {
+    font-size: inherit;
+    font-weight: 650;
+    letter-spacing: normal;
+    text-transform: none;
+    white-space: normal;
+    color: var(--heading);
+    background: none;
+    border-bottom-color: var(--border);
+}
+
+tr:last-child > td,
+tr:last-child > th[scope="row"] {
+    border-bottom: 0;
+}
+
+tbody tr:nth-child(even) {
+    background-color: var(--surface-2);
+}
+
+tbody tr {
+    transition: background-color var(--t) var(--ease);
+}
+
+tbody tr:hover {
+    background-color: var(--row-hover);
+}
+
+/* ---- Cards ------------------------------------------------------------- */
+.card-grid {
+    --card-pad: 1.25rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+    gap: var(--s-5);
+    margin: var(--s-5) 0 var(--s-7);
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-3);
+    padding: var(--card-pad);
+    overflow: hidden;
+    background-color: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    transition: transform 220ms var(--ease),
+                box-shadow 220ms var(--ease),
+                border-color 220ms var(--ease);
+}
+
+.card > * {
+    margin: 0;
+}
+
+/* Lead image bleeds to the card edges */
+.card > img:first-child {
+    width: calc(100% + var(--card-pad) * 2);
+    max-width: none;
+    margin: calc(var(--card-pad) * -1) calc(var(--card-pad) * -1) var(--s-1);
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+    border-radius: 0;
+}
+
+.card h3 {
+    font-size: 1.2rem;
+}
+
+.card p {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+}
+
+/* Pin the call-to-action to the bottom so cards line up */
+.card > .btn {
+    align-self: flex-start;
+    margin-top: auto;
+}
+
+.card:focus-within {
+    border-color: var(--border-strong);
+}
+
+@media (hover: hover) {
+    .card:hover {
+        transform: translateY(-3px);
+        border-color: var(--border-strong);
+        box-shadow: var(--shadow-lg);
+    }
+}
+
+/* ---- Member panels ----------------------------------------------------- */
+.member-section {
+    margin-bottom: var(--s-5);
+    padding: var(--s-5) var(--s-6);
+    background-color: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+}
+
+.member-section > :last-child {
+    margin-bottom: 0;
+}
+
+/* ---- Forms ------------------------------------------------------------- */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-4);
+    max-width: 34rem;
+}
+
+fieldset {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: var(--s-4) var(--s-5);
+}
+
+legend {
+    padding: 0 var(--s-2);
+    font-weight: 650;
+    color: var(--heading);
+}
+
+label {
+    font-size: 0.9rem;
+    font-weight: 650;
+    color: var(--heading);
+}
+
+/* Keep a label close to its own field, with more air between pairs */
+form > label:has(+ :is(input, textarea, select)) {
+    margin-bottom: calc(var(--s-2) * -1);
+}
+
+input,
+textarea,
+select {
+    width: 100%;
+    padding: 0.7rem 0.85rem;
+    font: inherit;
+    font-size: 1rem;
+    line-height: 1.4;
+    color: var(--text);
+    background-color: var(--field-bg);
+    border: 1px solid var(--field-border);
+    border-radius: var(--radius-sm);
+    transition: border-color var(--t) var(--ease), box-shadow var(--t) var(--ease);
+}
+
+input:hover,
+textarea:hover,
+select:hover {
+    border-color: var(--text-muted);
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    border-color: var(--navy-600);
+}
+
+input:user-invalid,
+textarea:user-invalid,
+select:user-invalid {
+    border-color: var(--danger);
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: var(--text-subtle);
+    opacity: 1;
+}
+
+input:disabled,
+textarea:disabled,
+select:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    background-color: var(--surface-2);
+}
+
+textarea {
+    min-height: 9rem;
+    resize: vertical;
+    line-height: 1.55;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+    width: 1.1rem;
+    height: 1.1rem;
+    padding: 0;
+    accent-color: var(--accent-control);
+}
+
+form .btn,
+form button,
+form input[type="submit"] {
+    align-self: flex-start;
+    width: auto;
+    margin-top: var(--s-1);
+}
+
+
+/* ==========================================================================
+   6. Utilities
+   ========================================================================== */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Add as the first element in <body>: <a class="skip-link" href="#main">… */
+.skip-link {
+    position: absolute;
+    top: -4rem;
+    left: var(--s-4);
+    z-index: 100;
+    padding: 0.65rem 1rem;
+    font-weight: 700;
+    color: var(--navy-950);
+    background: var(--amber-400);
+    border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+    text-decoration: none;
+    transition: top var(--t) var(--ease);
+}
+
+.skip-link:focus {
+    top: 0;
+}
+
+
+/* ==========================================================================
+   7. Responsive, dark mode, motion, print
+   ========================================================================== */
+
+/* Sticky navigation on larger screens (a wrapped nav would eat the viewport on phones) */
+@media (min-width: 48em) {
+    nav {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+    }
+}
+
+@media (max-width: 40em) {
+    nav a {
+        padding: 0.55rem 0.7rem;
+    }
+
+    nav a::after {
+        left: 0.7rem;
+        right: 0.7rem;
+    }
+
+    .member-section {
+        padding: var(--s-4);
+    }
+
+    /* Wide tables scroll sideways instead of breaking the layout */
+    table {
+        display: block;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    form {
+        max-width: none;
+    }
+}
+
+/* Dark mode: same brand, re-tuned surfaces. Delete this block to opt out. */
+@media screen and (prefers-color-scheme: dark) {
+    :root {
+        --bg: #0a1120;
+        --surface: #101a30;
+        --surface-2: #142039;
+        --border: #24324f;
+        --border-strong: #3a4b6e;
+        --text: #dbe3f0;
+        --text-muted: #9fadc5;
+        --text-subtle: #8191ad;
+        --heading: #f1f5fb;
+        --link: #9dbcff;
+        --link-hover: #ffffff;
+        --danger: #ff8a80;
+        --focus: var(--amber-400);
+
+        --btn-bg: var(--amber-400);
+        --btn-fg: var(--navy-950);
+        --btn-hover: var(--amber-300);
+        --thead-bg: #1b2b50;
+        --thead-fg: #e8eefb;
+        --row-hover: #1a2847;
+        --field-bg: #0d1628;
+        --field-border: #3a4b6e;
+        --accent-control: var(--amber-400);
+
+        --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.35);
+        --shadow-md: 0 1px 2px rgba(0, 0, 0, 0.3),
+                     0 14px 30px -16px rgba(0, 0, 0, 0.7);
+        --shadow-lg: 0 2px 4px rgba(0, 0, 0, 0.3),
+                     0 20px 40px -18px rgba(0, 0, 0, 0.8);
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+        border-color: var(--amber-400);
+    }
+
+    img {
+        filter: brightness(0.92);
+    }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    html {
+        scroll-behavior: smooth;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+
+    .card:hover,
+    .btn:hover {
+        transform: none;
+    }
+}
+
+@media print {
+    body {
+        display: block;
+        color: #000;
+        background: #fff;
+        font-size: 11pt;
+    }
+
+    nav,
+    .skip-link,
+    form,
+    .btn {
+        display: none !important;
+    }
+
+    header,
+    footer {
+        padding: 0 0 var(--s-4);
+        color: #000;
+        background: none;
+        border: 0;
+    }
+
+    header h1,
+    header p {
+        color: #000;
+    }
+
+    main {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        box-shadow: none;
+    }
+
+    .card,
+    table,
+    .member-section {
+        break-inside: avoid;
+        box-shadow: none;
+    }
+
+    a {
+        color: #000;
+    }
+
+    main a[href^="http"]::after {
+        content: " (" attr(href) ")";
+        font-size: 0.85em;
+        color: #444;
+    }
+}
